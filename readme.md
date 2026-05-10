@@ -72,13 +72,11 @@ Runs locally using Ollama.
 Supported models:
 - llama3.2
 
-
 ---
 
 # Architecture
 
-```text
-need to add img
+```text id="arch1" need to add img
 ```
 
 ---
@@ -210,7 +208,7 @@ TEMPERATURE=0
 
 # Running the Application
 
-## Run Backend
+## Run CLI System
 
 ```bash
 python main.py
@@ -234,6 +232,19 @@ I was charged twice for my subscription and nobody has responded for 3 days.
 
 ---
 
+# Example Output
+
+```text
+Category   : technical
+Sentiment  : frustrated
+Escalation : escalate
+
+Response:
+Step-by-step troubleshooting guide for payment failure...
+```
+
+---
+
 # Example Workflow
 
 ```text
@@ -241,19 +252,18 @@ Ticket Received
       ↓
 Triage Agent
       ↓
-Billing Agent
+Routing (Billing / Technical / FAQ)
+      ↓
+Response Generation
       ↓
 Sentiment Analysis
       ↓
 Escalation Decision
       ↓
-Human Escalation
+Final Output
 ```
 
 ---
-
-
-
 
 # Objectives
 
@@ -265,7 +275,7 @@ This project demonstrates:
 - Memory systems
 - Human escalation pipelines
 
-
+---
 
 # Sample Agent Responsibilities
 
@@ -280,6 +290,16 @@ This project demonstrates:
 
 ---
 
+# Notes / Improvements (Next Phase Ideas)
+
+- Add RAG-based knowledge base
+- Add confidence scoring before escalation
+- Add structured JSON outputs
+- Add evaluation metrics for routing accuracy
+- Add logging dashboard for agent decisions
+- Voice based chat
+
+---
 
 # License
 
@@ -287,10 +307,8 @@ MIT License
 
 ---
 
+# Built Using
 
-
-
-Built using:
 - LangChain
 - LangGraph
 - Ollama
