@@ -1,0 +1,11 @@
+langchain
+langgraph
+langchain-community
+langchain-ollama
+streamlit
+fastapi
+uvicorn
+python-dotenv
+chromadb
+pydantic
+sqlalchemy
