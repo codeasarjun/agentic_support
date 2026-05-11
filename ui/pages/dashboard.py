@@ -1,80 +1,47 @@
 import streamlit as st
-from components.agent_card import agent_card
+import requests
+
 from components.workflow_graph import workflow_graph
 from components.sentiment_meter import sentiment_meter
 from components.escalation_box import escalation_box
+
+
+API_URL = "http://127.0.0.1:8000/support-ticket"
+
 
 def show_dashboard():
 
     st.header("Customer Support Dashboard")
 
     ticket = st.text_area(
-        "Describe your issue",
-        placeholder="I was charged twice for my subscription..."
+        "Describe your issue"
     )
-
-    priority = st.selectbox(
-        "Priority",
-        ["Low", "Medium", "High", "Critical"]
-    )
-
-    customer_id = st.text_input("Customer ID")
 
     if st.button("Submit Ticket"):
 
-        category = "billing"
-        sentiment = "frustrated"
-        escalation = True
+        payload = {
+            "ticket": ticket
+        }
 
-        st.success("Ticket Submitted Successfully")
+        response = requests.post(
+            API_URL,
+            json=payload
+        )
+
+        result = response.json()
 
         workflow_graph()
 
-        st.subheader("Agent Decisions")
+        st.subheader("Category")
+        st.write(result["category"])
 
-        col1, col2, col3 = st.columns(3)
+        st.subheader("Sentiment")
+        sentiment_meter(result["sentiment"])
 
-        with col1:
-            agent_card(
-                "Triage Agent",
-                "Ticket classified as Billing",
-                "92%"
-            )
+        st.subheader("Response")
+        st.write(result["response"])
 
-        with col2:
-            agent_card(
-                "Billing Agent",
-                "Duplicate payment detected",
-                "89%"
-            )
-
-        with col3:
-            agent_card(
-                "Sentiment Agent",
-                "Customer appears frustrated",
-                "95%"
-            )
-
-        st.subheader("Sentiment Analysis")
-        sentiment_meter(sentiment)
-
-        st.subheader("Escalation Status")
-
-        if escalation:
+        if result["escalate"]:
             escalation_box(
-                "Human escalation required due to negative sentiment."
-            )
-
-        st.subheader("Conversation")
-
-        with st.chat_message("user"):
-            st.write(ticket)
-
-        with st.chat_message("assistant"):
-            st.write(
-                """
-                We identified a duplicate billing issue.
-                Your refund request has been forwarded
-                to the billing department.
-                """
+                result["escalation_reason"]
             )
