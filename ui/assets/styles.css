@@ -1,0 +1,22 @@
+body {
+    background-color: #0E1117;
+    color: white;
+}
+
+.stButton > button {
+    background-color: #00C2FF;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    padding: 10px 20px;
+}
+
+.stTextArea textarea {
+    background-color: #1E1E1E;
+    color: white;
+}
+
+.stSelectbox div {
+    background-color: #1E1E1E;
+    color: white;
+}
