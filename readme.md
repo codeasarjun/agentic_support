@@ -122,10 +122,27 @@ customer_support_ai/
 │   └── tickets.db
 │
 ├── ui/
-│   └── app.py
+│   │
+│   ├── app.py
+│   │
+│   ├── pages/
+│   │   ├── dashboard.py
+│   │   ├── ticket_history.py
+│   │   ├── analytics.py
+│   │   └── settings.py
+│   │
+│   ├── components/
+│   │   ├── agent_card.py
+│   │   ├── workflow_graph.py
+│   │   ├── sentiment_meter.py
+│   │   └── escalation_box.py
+│   │
+│   └── assets/
+│       └── styles.css
 │
 ├── main.py
 ├── requirements.txt
+├── .env
 └── README.md
 ```
 
