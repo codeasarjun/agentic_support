@@ -1,41 +1,29 @@
-
 import streamlit as st
-import sys
-import os
-
-sys.path.append(
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..")
-    )
-)
-
-from graph.workflow import workflow
+from pages.dashboard import show_dashboard
+from pages.ticket_history import show_ticket_history
+from pages.analytics import show_analytics
+from pages.settings import show_settings
 
 st.set_page_config(
-    page_title="Customer Support AI",
-    layout="centered"
+    page_title="Multi-Agent Customer Support",
+    layout="wide"
 )
 
-st.title("Multi-Agent Customer Support System")
+st.title("Multi-Agent Customer Support Escalation System")
 
-ticket = st.text_area(
-    "Enter Customer Ticket"
+menu = st.sidebar.radio(
+    "Navigation",
+    ["Dashboard", "Ticket History", "Analytics", "Settings"]
 )
 
-if st.button("Submit Ticket"):
+if menu == "Dashboard":
+    show_dashboard()
 
-    result = workflow.invoke({
-        "ticket": ticket
-    })
+elif menu == "Ticket History":
+    show_ticket_history()
 
-    st.subheader("Category")
-    st.write(result["category"])
+elif menu == "Analytics":
+    show_analytics()
 
-    st.subheader("Sentiment")
-    st.write(result["sentiment"])
-
-    st.subheader("Escalation")
-    st.write(result["escalation"])
-
-    st.subheader("AI Response")
-    st.write(result["response"])
+elif menu == "Settings":
+    show_settings()
